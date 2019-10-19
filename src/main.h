@@ -27,25 +27,25 @@ class CInv;
 class CRequestTracker;
 class CNode;
 
-static const int LAST_POW_BLOCK = 1234840; //about 10.18 years of PoW blocks
+static const int LAST_POW_BLOCK = 2234840; //about 10.18 years of PoW blocks
 
 static const unsigned int MAX_BLOCK_SIZE = 1000000;
-static const unsigned int MAX_BLOCK_SIZE_GEN = MAX_BLOCK_SIZE/2;
-static const unsigned int MAX_BLOCK_SIGOPS = MAX_BLOCK_SIZE/50;
-static const unsigned int MAX_ORPHAN_TRANSACTIONS = MAX_BLOCK_SIZE/100;
-static const unsigned int MAX_INV_SZ = 50000;
-static const int64_t MIN_TX_FEE = 0.0000002* COIN;
+static const unsigned int MAX_BLOCK_SIZE_GEN = MAX_BLOCK_SIZE/1;
+static const unsigned int MAX_BLOCK_SIGOPS = MAX_BLOCK_SIZE/25;
+static const unsigned int MAX_ORPHAN_TRANSACTIONS = MAX_BLOCK_SIZE/50;
+static const unsigned int MAX_INV_SZ = 25000;
+static const int64_t MIN_TX_FEE = 0.0010000* COIN;
 static const int64_t MIN_RELAY_TX_FEE = MIN_TX_FEE;
-static const int64_t MAX_MONEY = 90* 1000000 * COIN;
-static const int64_t MAX_MINT_PROOF_OF_STAKE = 12 * CENT; // 12% per year
-static const int MAX_TIME_SINCE_BEST_BLOCK = 10; // how many seconds to wait before sending next PushGetBlocks()
-static const int MODIFIER_INTERVAL_SWITCH = 100;
+static const int64_t MAX_MONEY = 180* 1000000 * COIN;
+static const int64_t MAX_MINT_PROOF_OF_STAKE = 100 * CENT; // 100% per year
+static const int MAX_TIME_SINCE_BEST_BLOCK = 5; // how many seconds to wait before sending next PushGetBlocks()
+static const int MODIFIER_INTERVAL_SWITCH = 50;
 
 static const unsigned int BLOCK_SWITCH_TIME = 1521572400; //  Tuesday, March 20, 2018 12:00:00 PM GMT-07:00
 
 inline bool MoneyRange(int64_t nValue) { return (nValue >= 0 && nValue <= MAX_MONEY); }
 // Threshold for nLockTime: below this value it is interpreted as block number, otherwise as UNIX timestamp.
-static const unsigned int LOCKTIME_THRESHOLD = 500000000; // Tue Nov  5 00:53:20 1985 UTC
+static const unsigned int LOCKTIME_THRESHOLD = 250000000; // Tue Nov  5 00:53:20 1985 UTC
 /** Combine Threshold Default */   
 static const int64_t DEF_COMBINE_AMOUNT = 250 * COIN; 
 /** Combine Threshold Max */  
@@ -63,9 +63,9 @@ static const uint256 hashGenesisBlockTestNet("00000fea25f87416682baa54946a1d1569
 inline int64_t GetClockDrift(int64_t nTime)
 {
 	if(nTime < BLOCK_SWITCH_TIME)
-		return 30 * 60;
+		return 15 * 30;
 	else
-		return 60;
+		return 30;
 }
 
 extern int64_t devCoin;
@@ -1548,7 +1548,7 @@ public:
 
     uint256 GetBlockHash() const
     {
-        if (fUseFastIndex && (nTime < GetAdjustedTime() - 24 * 60 * 60) && blockHash != 0)
+        if (fUseFastIndex && (nTime < GetAdjustedTime() - 12 * 30 * 30) && blockHash != 0)
             return blockHash;
 
         CBlock block;
