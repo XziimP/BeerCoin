@@ -1,4 +1,4 @@
-<h1>MotaCoin</h1>
+<h1>BeerCoin</h1>
 
 
 | Specification  | Details |	continued |
